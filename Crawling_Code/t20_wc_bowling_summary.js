@@ -29,14 +29,16 @@ collect(parse());
 
 //---------- 2.b Parser Code ---------//
 var match = $('div').filter(function(){
-	return $(this)
-      .find('span > span > span').text() === String("Match Details") 
+	return $(this).find('div > div > span').text() === String("MATCH FLOW") 
 }).siblings()
-team1 = $(match.eq(0)).find('span > span > span').text().replace(" Innings", "")
-team2 = $(match.eq(1)).find('span > span > span').text().replace(" Innings", "")
+var inning_teams = $(match.eq(1)).find('div')
+team1 = $(inning_teams.eq(0)).find('ul > li > span').text().replace(" innings", "")
+team2 = $(inning_teams.eq(1)).find('ul > li > span').text().replace(" innings", "")
 matchInfo = team1 + ' Vs ' + team2
 
-var tables = $('div > table.ds-table');
+var tables = $('div > table.ds-table-auto');
+
+//Step2: Selecting all rows we need from target table -- tr -- lấy các dòng lớn hơn 11
 var firstInningRows = $(tables.eq(1)).find('tbody > tr').filter(function(index, element){
   return $(this).find("td").length >= 11
 })
@@ -53,7 +55,7 @@ firstInningRows.each((index, element) => {
   		"match": matchInfo,
   		"bowlingTeam": team2,
    		"bowlerName": $(tds.eq(0)).find('a > span').text().replace(' ', ''),
-    	"overs": $(tds.eq(1)).text(),
+    		"overs": $(tds.eq(1)).text(),
   		"maiden": $(tds.eq(2)).text(), 
   		"runs": $(tds.eq(3)).text(),
   		"wickets": $(tds.eq(4)).text(),
@@ -72,16 +74,16 @@ secondInningsRows.each((index, element) => {
   		"match": matchInfo,
   		"bowlingTeam": team1,
    		"bowlerName": $(tds.eq(0)).find('a > span').text().replace(' ', ''),
-    	"overs": $(tds.eq(1)).text(),
+    		"overs": $(tds.eq(1)).text(),
   		"maiden": $(tds.eq(2)).text(), 
   		"runs": $(tds.eq(3)).text(),
   		"wickets": $(tds.eq(4)).text(),
   		"economy": $(tds.eq(5)).text(),
  		"0s": $(tds.eq(6)).text(),
-    	"4s": $(tds.eq(7)).text(),
-    	"6s": $(tds.eq(8)).text(),
-    	"wides": $(tds.eq(9)).text(),
-    	"noBalls": $(tds.eq(10)).text()
+	    	"4s": $(tds.eq(7)).text(),
+	    	"6s": $(tds.eq(8)).text(),
+	    	"wides": $(tds.eq(9)).text(),
+	    	"noBalls": $(tds.eq(10)).text()
   });
 });
 
