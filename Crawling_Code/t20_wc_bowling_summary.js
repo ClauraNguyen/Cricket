@@ -11,7 +11,7 @@ for(let i of links) {
 
 //------- 1.b Parser Code ------------//
 let links = []
-const allRows = $('table.engineTable > tbody > tr.data1');
+const allRows = $('table.ds-scrollbar-hide > tbody > tr');
  	allRows.each((index, element) => {
   	const tds = $(element).find('td');
   	const rowURL = "https://www.espncricinfo.com" +$(tds[6]).find('a').attr('href');
@@ -28,13 +28,12 @@ navigate(input.url);
 collect(parse());
 
 //---------- 2.b Parser Code ---------//
-var match = $('div').filter(function(){
-	return $(this).find('div > div > span').text() === String("MATCH FLOW") 
-}).siblings()
-var inning_teams = $(match.eq(1)).find('div')
-team1 = $(inning_teams.eq(0)).find('ul > li > span').text().replace(" innings", "")
-team2 = $(inning_teams.eq(1)).find('ul > li > span').text().replace(" innings", "")
-matchInfo = team1 + ' Vs ' + team2
+var match_flow = $('div').filter(function(){
+	return $(this).find('span > span > span').text() === String("Match Flow") 
+}).siblings();
+team1 = $(match_flow[0]).find('span > span > span').text().replace(' Innings','')
+team2 = $(match_flow[1]).find('span > span > span').text().replace(' Innings','')
+matchInfo = team1 + ' Vs ' + team2;
 
 var tables = $('div > table.ds-table-auto');
 
