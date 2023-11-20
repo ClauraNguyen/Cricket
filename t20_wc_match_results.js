@@ -13,7 +13,7 @@ collect(parse());
 let matchSummary = []
 
 //Step2: Selecting all rows we need from target table
-const allRows = $('table.engineTable > tbody > tr.data1');
+const allRows = $('table.ds-scrollbar-hide > tbody > tr');
 
 //Step3: Looping through each rows and get the data from the cells(td)
  allRows.each((index, element) => {
