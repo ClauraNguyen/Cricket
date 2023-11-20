@@ -12,7 +12,7 @@ for(let i of links) {
 
 //------- 1.b Parser Code ------------//
 let links = []
-const allRows = $('table.engineTable > tbody > tr.data1');
+const allRows = $('table.ds-scrollbar-hide > tbody > tr');
  allRows.each((index, element) => {
   const tds = $(element).find('td');
   const rowURL = "https://www.espncricinfo.com" +$(tds[6]).find('a').attr('href');
@@ -42,7 +42,7 @@ var playersLinks = []
 
 var match = $('div').filter(function(){
 	return $(this)
-      .find('span > span > span').text() === String("Match Details") 
+      .find('span > span > span').text() === String("MMatch Flow") 
 }).siblings()
 team1 = $(match.eq(0)).find('span > span > span').text().replace(" Innings", "")
 team2 = $(match.eq(1)).find('span > span > span').text().replace(" Innings", "")
