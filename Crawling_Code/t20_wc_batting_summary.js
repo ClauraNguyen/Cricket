@@ -60,39 +60,39 @@ var secondInningsRows = $(tables.eq(1)).find('tbody > tr').filter(
 	}
 );
 
-
+//Step3: Looping through each rows and get the data from the cells(td)
 var battingSummary = []
-
 firstInningRows.each((index, element) => {
 var tds = $(element).find('td');
   battingSummary.push({
-  		"match": matchInfo,
-  		"teamInnings": team1,
-   		"battingPos": index+1,
-  		"batsmanName": $(tds.eq(0)).find('a > span > span').text().replace(' ', ''),
-    		"dismissal": $(tds.eq(1)).find('span > span').text(),
-  		"runs": $(tds.eq(2)).find('strong').text(), 
-  		"balls": $(tds.eq(3)).text(),
-  		"4s": $(tds.eq(5)).text(),
-  		"6s": $(tds.eq(6)).text(),
- 		"SR": $(tds.eq(7)).text()
+	"match": matchInfo,
+	"teamInnings": team1,
+	"battingPos": index+1,
+	"batsmanName": $(tds.eq(0)).find('a > span > span').text().replace(' ', ''),
+	"dismissal": $(tds.eq(1)).find('span > span').text(),
+	"runs": $(tds.eq(2)).find('strong').text(), 
+	"balls": $(tds.eq(3)).text(),
+	"4s": $(tds.eq(5)).text(),
+	"6s": $(tds.eq(6)).text(),
+	"SR": $(tds.eq(7)).text()
   });
 });
 
 secondInningsRows.each((index, element) => {
   var tds = $(element).find('td');
-   battingSummary.push({
-  		"match": matchInfo,
-  		"teamInnings": team2,
-   		"battingPos": index+1,
-  		"batsmanName": $(tds.eq(0)).find('a > span > span').text().replace(' ', ''),
-     		"dismissal": $(tds.eq(1)).find('span > span').text(),
-  		"runs": $(tds.eq(2)).find('strong').text(), 
-  		"balls": $(tds.eq(3)).text(),
-  		"4s": $(tds.eq(5)).text(),
-  		"6s": $(tds.eq(6)).text(),
- 		"SR": $(tds.eq(7)).text()
+  battingSummary.push({
+	"match": matchInfo,
+	"teamInnings": team2,
+	"battingPos": index+1,
+	"batsmanName": $(tds.eq(0)).find('a > span > span').text().replace(' ', ''),
+	"dismissal": $(tds.eq(1)).find('span > span').text(),
+	"runs": $(tds.eq(2)).find('strong').text(), 
+	"balls": $(tds.eq(3)).text(),
+	"4s": $(tds.eq(5)).text(),
+	"6s": $(tds.eq(6)).text(),
+	"SR": $(tds.eq(7)).text()
   });
 });
 
+// step4: Finally returning the data
 return {"battingSummary": battingSummary}
