@@ -3,7 +3,6 @@
 //------- 1.a Interaction Code ------ //
 navigate('https://stats.espncricinfo.com/ci/engine/records/team/match_results.html?id=14450;type=tournament');
 
-
 let links = parse().playersLinks;
 for(let i of links) { 
   next_stage({url: i}) 
@@ -28,6 +27,8 @@ navigate(input.url);
 collect(parse());
 
 //---------- 2.b Parser Code ---------//
+
+//Step0: Take Match Information
 var match_flow = $('div').filter(function(){
 	return $(this).find('span > span > span').text() === String("Match Flow") 
 }).siblings();
@@ -35,9 +36,10 @@ team1 = $(match_flow[0]).find('span > span > span').text().replace(' Innings',''
 team2 = $(match_flow[1]).find('span > span > span').text().replace(' Innings','')
 matchInfo = team1 + ' Vs ' + team2;
 
+//Step1: create an array to store all the records
 var tables = $('div > table.ds-table-auto');
 
-//Step2: Selecting all rows we need from target table -- tr -- lấy các dòng lớn hơn 11
+//Step2: Selecting all rows we need from target table -- tr
 var firstInningRows = $(tables.eq(1)).find('tbody > tr').filter(function(index, element){
   return $(this).find("td").length >= 11
 })
@@ -46,7 +48,7 @@ var secondInningsRows = $(tables.eq(3)).find('tbody > tr').filter(function(index
   return $(this).find("td").length >= 11
 });
 
-
+//Step3: Looping through each rows and get the data from the cells -- td
 var bowlingSummary = []
 firstInningRows.each((index, element) => {
   var tds = $(element).find('td');
@@ -86,5 +88,6 @@ secondInningsRows.each((index, element) => {
   });
 });
 
+// step4: Finally returning the data
 return {"bowlingSummary": bowlingSummary}
 
