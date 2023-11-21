@@ -30,10 +30,10 @@ navigate(input.url);
 
 let playersData = parse().playersData;
 for(let obj of playersData) { 
-  name = obj['name']
-  team = obj['team']
-  url = obj['link']
-  next_stage({name: name, team: team, url: url}) 
+	name = obj['name']
+	team = obj['team']
+	url = obj['link']
+next_stage({name: name, team: team, url: url}) 
 }
 
 //---------- 2.b Parser Code ---------//
@@ -42,7 +42,7 @@ var playersLinks = []
 
 var match = $('div').filter(function(){
 	return $(this)
-      .find('span > span > span').text() === String("MMatch Flow") 
+      .find('span > span > span').text() === String("Match Flow") 
 }).siblings()
 team1 = $(match.eq(0)).find('span > span > span').text().replace(" Innings", "")
 team2 = $(match.eq(1)).find('span > span > span').text().replace(" Innings", "")
@@ -62,8 +62,8 @@ firstInningRows.each((index, element) => {
   var tds = $(element).find('td');
   playersLinks.push({
   		"name": $(tds.eq(0)).find('a > span > span').text().replace(' ', ''),
-    	"team": team1,
-    	"link": "https://www.espncricinfo.com" + $(tds.eq(0)).find('a').attr('href')  
+	    	"team": team1,
+	    	"link": "https://www.espncricinfo.com" + $(tds.eq(0)).find('a').attr('href')  
   });
 });
 
@@ -71,14 +71,14 @@ secondInningsRows.each((index, element) => {
   var tds = $(element).find('td');
    playersLinks.push({
   		"name": $(tds.eq(0)).find('a > span > span').text().replace(' ', ''),
-     	"team": team2,
-     	"link": "https://www.espncricinfo.com" + $(tds.eq(0)).find('a').attr('href')  
+	     	"team": team2,
+	     	"link": "https://www.espncricinfo.com" + $(tds.eq(0)).find('a').attr('href')  
   });
 });
 
 //for bowling players 
 
-var tables = $('div > table.ds-table');
+var tables = $('div > table.ds-table-auto');
 var firstInningRows = $(tables.eq(1)).find('tbody > tr').filter(function(index, element){
   return $(this).find("td").length >= 11
 })
@@ -92,8 +92,8 @@ firstInningRows.each((index, element) => {
   var tds = $(element).find('td');
   playersLinks.push({
    		"name": $(tds.eq(0)).find('a > span').text().replace(' ', ''),
-    	"team": team2.replace(" Innings", ""),
-    	"link": "https://www.espncricinfo.com" + $(tds.eq(0)).find('a').attr('href')  
+    		"team": team2,
+    		"link": "https://www.espncricinfo.com" + $(tds.eq(0)).find('a').attr('href')  
     	
   });
 });
@@ -102,7 +102,7 @@ secondInningsRows.each((index, element) => {
   var tds = $(element).find('td');
    playersLinks.push({
   		"name": $(tds.eq(0)).find('a > span').text().replace(' ', ''),
-    	"team": team1.replace(" Innings", ""),
+    	"team": team1,
     	"link": "https://www.espncricinfo.com" + $(tds.eq(0)).find('a').attr('href')
   });
 });
@@ -118,24 +118,24 @@ navigate(input.url);
 final_data = parse()
 collect(
 {
- "name": input.name,
+  "name": input.name,
   "team": input.team,
   "battingStyle": final_data.battingStyle,
   "bowlingStyle": final_data.bowlingStyle,
   "playingRole":  final_data.playingRole,
-  "description": final_data.content,
+  "description":  final_data.content,
 });
  
 //---------- 3.b Parser Code ---------//
-const battingStyle = $('div.ds-grid > div').filter(function(index){
+const battingStyle = $('div.ds-mb-8 > div').filter(function(index){
     return $(this).find('p').first().text() === String('Batting Style')
   })
 
-const bowlingStyle = $('div.ds-grid > div').filter(function(index){
+const bowlingStyle = $('div.ds-mb-8 > div').filter(function(index){
     return $(this).find('p').first().text() === String('Bowling Style')
   })
 
-const playingRole = $('div.ds-grid > div').filter(function(index){
+const playingRole = $('div.ds-mb-8 > div').filter(function(index){
     return $(this).find('p').first().text() === String('Playing Role')
   })
 
@@ -143,7 +143,7 @@ const playingRole = $('div.ds-grid > div').filter(function(index){
 
  return {
   	"battingStyle": battingStyle.find('span').text(),
-   "bowlingStyle": bowlingStyle.find('span').text(),
-   "playingRole": playingRole.find('span').text(),
-   "content": $('div.ci-player-bio-content').find('p').first().text()
+   	"bowlingStyle": bowlingStyle.find('span').text(),
+  	"playingRole": playingRole.find('span').text(),
+   	"content": $('div.ci-player-bio-content').find('p').first().text()
 }
