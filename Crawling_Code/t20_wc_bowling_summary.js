@@ -29,9 +29,12 @@ collect(parse());
 //---------- 2.b Parser Code ---------//
 
 //Step0: Take Match Information
-var match_flow = $('div').filter(function(){
-	return $(this).find('span > span > span').text() === String("Match Flow") 
-}).siblings();
+var match_flow = $('div').filter(
+	function(){ 
+		return $(this).find('span > span > span').text() === String("Match Flow") 
+	}
+).siblings();
+
 team1 = $(match_flow[0]).find('span > span > span').text().replace(' Innings','')
 team2 = $(match_flow[1]).find('span > span > span').text().replace(' Innings','')
 matchInfo = team1 + ' Vs ' + team2;
